@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对列封装</title>
+</head>
+<body>
+  <script>
+    //  基于数组封装队列
+    class Queue{
+      //  属性
+      constructor() {
+        // 栈的属性
+        this.items = []
+      }
+      //  方法
+      //  将元素加入到队列中
+      enqueue(e) {
+        this.items.push(e)
+      }
+      // 从队列删除元素（删除第一个元素） (数组性能不高 删除第一后 后面会前移操作)
+      dequeue() {
+        return this.items.shift()
+      }
+      //  查看第一个元素
+      front() {
+        return this.items[0]
+      }
+      //  查看队列是否为空
+      isEmpty() {
+        return this.items.length === 0
+      }
+      // 查看队列中元素的个数
+      size() {
+        return this.items.length
+      }
+      //  toString方法
+      toString() {
+        return this.items.join(' ')
+      }
+    }
+    // 使用
+    let queue = new Queue()
+    queue.enqueue('aaa')
+    queue.enqueue('bbb')
+    queue.enqueue('ccc')
+    queue.enqueue('ddd')
+    console.log('test', queue)
+    queue.dequeue()
+    console.log('删除第一个', queue)
+    queue.dequeue()
+    console.log('删除第二个', queue)
+    console.log('front',queue.front())
+    console.log('isEmpty',queue.isEmpty())
+    console.log('size',queue.size())
+    console.log('toString',queue.toString())
+  </script>
+</body>
+</html>
