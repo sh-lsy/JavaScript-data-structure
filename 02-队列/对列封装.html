@@ -56,6 +56,32 @@
     console.log('isEmpty',queue.isEmpty())
     console.log('size',queue.size())
     console.log('toString',queue.toString())
+
+    /**
+     *  击鼓传花面试题目
+     * 
+     */ 
+    function passGame(nameList, num) {
+      //  创建一个队列结构
+      let queue = new Queue()
+      //  将所有人加入到队列中
+      for (let i = 0; i < nameList.length; i++) {
+        queue.enqueue(nameList[i])
+      }
+      // 开始数数字 num时 将其从队列移除  不是时 重新加入队列末尾
+      while(queue.size() > 1) {
+        for(let i = 0; i < num -1; i++) {
+          queue.enqueue(queue.dequeue())
+        }
+        // 当num对应这个人时
+        queue.dequeue()
+      }
+      //  返回对应的人在原数组的下标
+      // return nameList.indexOf(queue.front())
+      return queue.front()
+    }
+    let nameList = ['skye', 'tom', 'lucy', 'sss', 'jem']
+    console.log('passGame', passGame(nameList, 3))
   </script>
 </body>
 </html>
