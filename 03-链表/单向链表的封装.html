@@ -9,7 +9,7 @@
 <body>
   <script>
     /**
-     *  链表节点lei
+     *  链表节点类
      */
     class Node {
       constructor(ele) {
@@ -74,6 +74,28 @@
         }
         return current.ele
       }
+      //  indexOf  获取元素的位置
+      indexOf(ele) {
+        let currentNode = this.head
+        let index = 0
+        while(currentNode) {
+          if (currentNode.ele === ele) return index
+          index+=1
+          currentNode = currentNode.next
+        }
+        // 查找所有节点没发现 返回-1
+        return -1
+      }
+      //  update  修改某个位置的节点
+      update(position, ele) {
+        if(position < 0 || position >= this.length) return false
+        let currentNode = this.head
+        while(position--) {
+          currentNode = currentNode.next
+        }
+        currentNode.ele = ele
+        return true
+      }
       //  toString方法
       toString() {
         let currentNode = this.head
@@ -97,8 +119,11 @@
     link.insert(0, 'ddd')
     link.insert(3, 'fff')
     console.log('inserttest', link)
-    console.log('inserttest', link.get(0))
-    console.log('inserttest', link.get(3))
+    console.log('get', link.get(0))
+    console.log('get', link.get(3))
+    console.log('indexof', link.indexOf('fff'))
+    link.update(3,'ffff')
+    console.log('update',link)
   </script>
 </body>
 </html>
