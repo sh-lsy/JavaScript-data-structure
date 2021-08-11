@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>栈的封装</title>
+</head>
+<body>
+  <p>
+    栈，先进后出
+  </p>
+  <script>
+    // 封装栈类
+    class Stack{
+      constructor() {
+        // 栈的属性
+        this.items = []
+      }
+      // 栈的相关操作
+      // 1.将元素压入栈
+      push(e) {
+        this.items.push(e)
+      }
+      // 2.从栈中取出元素
+      pop() {
+        return this.items.pop()
+      }
+      // 3.查看栈顶元素
+      peek() {
+        return this.items[this.items.length - 1]
+      }
+      // 4.判断栈是否为空
+      isEmpty() {
+        return this.items.length === 0
+      }
+      // 5.获取栈中元素的个数
+      size() {
+        return this.items.length
+      }
+      // 6.toString方法
+      toString() {
+        return this.items.join(' ')
+      }
+    }
+    // 栈的使用
+    let s = new Stack()
+    s.push(20)
+    s.push(10)
+    s.push(30)
+    s.push(50)
+    console.log('test',s)
+    s.pop()
+    s.pop()
+    // s.pop()
+    // s.pop()
+    console.log('test',s.size())
+    console.log('test',s.toString())
+    console.log('test',s.peek())
+    console.log('test',s.isEmpty())
+
+    /**
+     *   基于栈结构 进行十进制转二进制
+     */
+    function dec2bin(num) {
+      //  定义栈对象
+      let stack = new Stack()
+      // 循环
+      while(num > 0) {
+        //  获取余数，并放入栈中
+        stack.push(num % 2)
+        //  将整除后的整数（向下取整）作为下次循环的数字
+        num = Math.floor(num / 2)
+      }
+      //  从栈中取出0和1 
+      let binaryString = ''
+      while(!stack.isEmpty()) {
+        binaryString += stack.pop()
+      }
+      return binaryString
+    }
+    console.log('dec2bin', dec2bin(10))
+    console.log('dec2bin', dec2bin(100))
+    console.log('dec2bin', dec2bin(2))
+  </script>
+</body>
+</html>

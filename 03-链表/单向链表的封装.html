@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>单向链表的封装</title>
+</head>
+<body>
+  <script>
+    /**
+     *  链表节点类
+     */
+    class Node {
+      constructor(ele) {
+        this.ele = ele
+        this.next = null
+      }
+    }
+    /**
+     *  封装链表
+     */ 
+    class LinkedList {
+      constructor(ele) {
+        this.head = null
+        this.length = 0
+      }
+      //  末尾插入节点
+      append(ele) {
+        let newNode = new Node(ele)
+        let currentNode
+        //  判断是否为添加的第一个节点
+        if(this.length === 0) {
+          this.head = newNode
+        } else {
+          currentNode = this.head
+          // 查找最后一个节点
+          while(currentNode.next) {
+            currentNode = currentNode.next
+          }
+          //  将最后一个节点next 指向新节点
+          currentNode.next = newNode
+        }
+        this.length++
+      }
+      //  在链表某个位置插入节点
+      insert(position, ele) {
+        //  判断插入位置是否越界
+        if(position < 0 || position > this.length) return new Error('位置超出范围')
+        //  进行插入
+        let newNode = new Node(ele)
+        let currentNode = this.head
+        let preNode
+        if (position === 0) {
+          newNode.next = currentNode
+          this.head = newNode
+        } else {
+          while(position--) {
+            preNode = currentNode
+            currentNode = currentNode.next
+          }
+          newNode.next = currentNode
+          preNode.next = newNode
+        }
+        this.length++
+        return true
+      }
+      //  get 获取指定位置
+      get(position) {
+        if(position < 0 || position >= this.length) return null
+        let current = this.head
+        while(position--) {
+          current = current.next
+        }
+        return current.ele
+      }
+      //  indexOf  获取元素的位置
+      indexOf(ele) {
+        let currentNode = this.head
+        let index = 0
+        while(currentNode) {
+          if (currentNode.ele === ele) return index
+          index+=1
+          currentNode = currentNode.next
+        }
+        // 查找所有节点没发现 返回-1
+        return -1
+      }
+      //  update  修改某个位置的节点
+      update(position, ele) {
+        if(position < 0 || position >= this.length) return false
+        let currentNode = this.head
+        while(position--) {
+          currentNode = currentNode.next
+        }
+        currentNode.ele = ele
+        return true
+      }
+      // 
+      //  toString方法
+      toString() {
+        let currentNode = this.head
+        let listString = ''
+        while(currentNode) {
+          listString += currentNode.ele + ' '
+          currentNode = currentNode.next
+        }
+        return listString
+      }
+    }
+
+    let link = new LinkedList()
+    console.log('test', link)
+    link.append('aaa')
+    link.append('bbb')
+    link.append('ccc')
+    console.log('test', link)
+    console.log('toString:', link.toString())
+    console.log('link.head:', link.head)
+    link.insert(0, 'ddd')
+    link.insert(3, 'fff')
+    console.log('inserttest', link)
+    console.log('get', link.get(0))
+    console.log('get', link.get(3))
+    console.log('indexof', link.indexOf('fff'))
+    link.update(3,'ffff')
+    console.log('update',link)
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>优先级队列</title>
+</head>
+<body>
+  <script>
+    class PriorityQueue {
+      constructor() {
+        this.items = []
+      }
+      _QueueItem(element, priority) {
+        return {
+          element,
+          priority
+        }
+      }
+      enqueue(element, priority) {
+        let queueItem = this._QueueItem(element, priority)
+        // 判断队列状态进行添加
+        if(this.items.length === 0) {
+          this.items.push(queueItem)
+        } else {
+          let add = false
+          for(let i = 0; i < this.items.length;i++) {
+            if(queueItem.priority < this.items[i].priority) {
+              this.items.splice(i, 0, queueItem)
+              add = true
+              break
+            }
+          }
+          if(!add) {
+            this.items.push(queueItem)
+          }
+        }
+      }
+      // 从队列删除元素（删除第一个元素） (数组性能不高 删除第一后 后面会前移操作)
+      dequeue() {
+        return this.items.shift()
+      }
+      //  查看第一个元素
+      front() {
+        return this.items[0]
+      }
+      //  查看队列是否为空
+      isEmpty() {
+        return this.items.length === 0
+      }
+      // 查看队列中元素的个数
+      size() {
+        return this.items.length
+      }
+      //  toString方法
+      toString() {
+        let result = ''
+        for (let i = 0; i < this.items.length; i++) {
+          result += this.items[i].element + ' '
+        }
+        return result
+      }
+    }
+    var pq = new PriorityQueue()
+
+    pq.enqueue('aaa', 100)
+    pq.enqueue('bbb', 10)
+    pq.enqueue('ccc', 50)
+    pq.enqueue('ddd', 200)
+    pq.enqueue('fff', 100)
+    console.log('PriorityQueue', pq)
+    pq.dequeue()
+    console.log('删除第一个', pq)
+    pq.dequeue()
+    console.log('删除第二个', pq)
+    console.log('front',pq.front())
+    console.log('isEmpty',pq.isEmpty())
+    console.log('size',pq.size())
+    console.log('toString',pq.toString())
+  </script>
+</body>
+</html>
