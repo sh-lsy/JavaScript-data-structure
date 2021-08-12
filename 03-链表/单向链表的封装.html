@@ -96,7 +96,36 @@
         currentNode.ele = ele
         return true
       }
-      // 
+      // removeAt方法
+      removeAt(position) {
+        if(position < 0 || position >= this.length) return null
+        //  判断是否删除第一个节点
+        let current = this.head
+        if (position === 0 ) {
+          this.head = this.head.next
+        } else {
+          let index = 0
+          let previous = null
+          while(index++ < position) {
+            previous = current
+            current = current.next
+          }
+          previous.next = current.next
+        }
+        this.length -=1
+        return current.data
+      }
+      //  remove 
+      remove(data) {
+        let position = this.indexOf(data)
+        return this.removeAt(position)
+      }
+      isEmpty() {
+        return this.length === 0
+      }
+      size() {
+        return this.length
+      }
       //  toString方法
       toString() {
         let currentNode = this.head
@@ -125,6 +154,13 @@
     console.log('indexof', link.indexOf('fff'))
     link.update(3,'ffff')
     console.log('update',link)
+
+    // link.removeAt(2)
+    link.remove('ccc')
+    console.log('remove',link)
+    console.log('isEmpty',link.isEmpty())
+    console.log('size',link.size())
+
   </script>
 </body>
 </html>
