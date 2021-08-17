@@ -124,6 +124,49 @@
         current.ele = ele
         return true
       }
+      removeAt(position) {
+        if(position < 0 || position >= this.length) return null
+        //  只有一个节点
+        let current = this.head
+        if (this.length === 1) {
+          this.head = null
+          this.tail = null
+        } else {
+          if (position === 0) {
+            this.head.next.prev = null
+            this.head = this.head.next
+          } else if (position === this.length - 1) {
+            current = this.tail
+            this.tail.prev.next = null
+            this.tail = this.tail.prev
+          } else {
+            let index = 0
+            while(index++ < position) {
+              current = current.next
+            }
+            current.prev.next = current.next
+            current.next.prev = current.prev
+          }
+        }
+        this.length -= 1
+        return current.ele
+      }
+      remove(ele) {
+        let index = this.indexOf(ele)
+        return this.removeAt(index)
+      }
+      isEmpty() {
+        return this.length === 0
+      }
+      size() {
+        return this.length
+      }
+      getHead() {
+        return this.head.ele
+      }
+      getTail() {
+        return this.tail.ele
+      }
       toString() {
         return this.backwardString()
       }
@@ -175,6 +218,12 @@
     dList.update(3, 'eeee')
     dList.update(5, 'ffff')
     console.log('update',dList) // aaaa ddd bbb eeee ccc ffff
+    // dList.removeAt(5)
+    // console.log('removeAt',dList)
+    // dList.remove('ffff')
+    // console.log('remove',dList)
+    console.log('isEmpty',dList.isEmpty())
+    console.log('size',dList.size())
   </script>
 </body>
 </html>
