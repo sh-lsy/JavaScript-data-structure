@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>集合封装</title>
+</head>
+<body>
+  <script>
+    //  集合 类似es6中 set 
+    class Set {
+      // 属性
+      constructor() {
+        this.items = {}
+      }
+      // 方法
+      add(val) {
+        if (this.has(val)) return false
+        this.items[val] = val
+        return true
+      }
+      // remove
+      remove(val) {
+        if (!this.has(val)) return false
+        delete this.items[val]
+        return true
+      }
+      clear() {
+        this.items = {}
+      }
+      size() {
+        return Object.keys(this.items).length
+      }
+      values() {
+        return Object.values(this.items)
+      }
+      has(val) {
+        return this.items.hasOwnProperty(val)
+      }
+      //  集合间的操作
+      // union 并集
+      union(otherSet) {
+        let unionSet = new Set()
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          unionSet.add(values[i])
+        }
+        values = otherSet.values()
+        for (let i = 0; i < values.length; i++) {
+          unionSet.add(values[i])
+        }
+        return unionSet
+      }
+      // intersection 交集
+      intersection(otherSet) {
+        let intersectionSet = new Set()
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          if(otherSet.has(values[i])) {
+            intersectionSet.add(values[i])
+          }
+        }
+        return intersectionSet
+      }
+      // difference 差集
+      difference(otherSet) {
+        let differenceSet = new Set()
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          if(!otherSet.has(values[i])) {
+            differenceSet.add(values[i])
+          }
+        }
+        return differenceSet
+      }
+      // sub 子集
+      sub(otherSet) {
+        let subSet = new Set()
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          if(!otherSet.has(values[i])) {
+            return false
+          }
+        }
+        return true
+      }
+    }
+    let set = new Set()
+    set.add('aaa')
+    set.add('bbb')
+    set.add('ccc')
+    set.add('aaa')
+    console.log('add', set)
+    // set.remove('bbb')
+    // console.log('remove', set)
+    // set.clear()
+    // console.log('clear', set)
+    console.log('size',set.size())
+    console.log('values',set.values())
+    //  集合间的操作
+    let set1 = new Set()
+    set1.add('ddd')
+    set1.add('bbb')
+    set1.add('eee')
+    set1.add('aaa')
+    set1.add('fff')
+    console.log('union', set.union(set1))
+    console.log('intersection', set.intersection(set1))
+    console.log('difference', set.difference(set1))
+    console.log('sub', set.sub(set1))
+    let set2 = new Set()
+    set2.add('aaa')
+    set2.add('bbb')
+    set2.add('ccc')
+    set2.add('ddd')
+    console.log('sub', set.sub(set2))
+  </script>
+</body>
+</html>
