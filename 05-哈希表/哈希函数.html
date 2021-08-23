@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>哈希函数</title>
+</head>
+<body>
+  <script>
+    /**
+     *  设计哈希函数
+     *    将字符串转成比较大的数字： hashCode
+     *    将大的数字hashCode压缩到数组范围之内
+     */ 
+    function hashFunc(str,size) {
+      let hashCode = 0
+      for (let i = 0; i < str.length; i++) {
+        //  获取当前字符的Unicode编码 str.charCodeAt(i)
+        //  37 比较常用
+        hashCode = 37 * hashCode + str.charCodeAt(i)
+      }
+      // 取余
+      let index = hashCode % size
+      return index
+    }
+
+    console.log('hashFunc', hashFunc('aa', 7))  // 4
+    console.log('hashFunc', hashFunc('bb', 7))  // 0
+    console.log('hashFunc', hashFunc('cc', 7))  // 3
+    console.log('hashFunc', hashFunc('dd', 7))  // 6
+
+  </script>
+</body>
+</html>
