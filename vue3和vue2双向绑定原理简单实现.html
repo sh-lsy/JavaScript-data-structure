@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      height:32px;
+      width: 200px;
+      font-size:16px;
+      line-height: 16px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    Document12121211a测试哈哈哈测试哈哈哈测试哈哈哈测试哈哈哈测试哈哈哈测试哈哈哈
+  </div>
+  <span id="sp"></span>
+  <input type="text" id="inp">
+  <script>
+    (function() {
+      console.log('test',a)
+      var a = 1
+    })()
+    // console.log('test11', a)
+    let obj = {
+      name: 'haha'
+    }
+    // let newObj = JSON.parse(JSON.stringify(obj))
+    // Object.defineProperty(obj,'name', {
+    //   get() {
+    //     return newObj.name
+    //   },
+    //   set(val) {
+    //     if (val === newObj.name) return
+    //     newObj.name = val
+    //     observer()
+    //   }
+    // })
+    obj = new Proxy(obj, {
+      get(target,prop) {
+        return target[prop]
+      },
+      set(target,prop,value) {
+        target[prop] = value
+        observer()
+      }
+    })
+    function observer() {
+      sp.innerText = obj.name
+      inp.value = obj.name
+    }
+    observer()
+    inp.oninput = function() {
+      obj.name = this.value
+    }
+  </script>
+</body>
+</html>

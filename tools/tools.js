@@ -78,3 +78,33 @@ function quickSort(arr) {
   // }
   // return quickSort(left).concat(pivot,quickSort(right))
 }
+
+
+
+
+
+/**
+ *  深度克隆
+ */
+
+function deepClone(obj) {
+  // 过滤不需要深度克隆的情况
+  if (obj === null) return null
+  if (typeof obj !== 'object') return obj
+  // 正则处理
+  if (obj instanceof RegExp) {
+    return new RegExp(obj)
+  }
+  //  日期处理
+  if (obj instanceof Date) {
+    return new Date(obj)
+  }
+  // 不直接创建空对象， 使克隆的结果和之前保持相同的所属类
+  let newObj = new obj.constructor
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = deepClone(obj[key])
+    }
+  }
+  return newObj
+}
