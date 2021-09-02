@@ -108,3 +108,24 @@ function deepClone(obj) {
   }
   return newObj
 }
+/**
+ * 防抖函数
+ * @param {*} func 
+ * @param {*} delay 
+ * @param {*} target 
+ * @returns 
+ */
+
+function debounce (func,delay, target = true) {
+  let timer = null
+  return function (...args) {
+    if(timer) clearTimeout(timer)
+    // 是否立即执行
+    if(target && !tiemr) {
+      func.apply(this,args)
+    }
+    timer = setTimeout(() => {
+      func.apply(this,args)
+    },delay)
+  }
+}
