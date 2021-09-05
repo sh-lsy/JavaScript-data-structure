@@ -19,7 +19,71 @@
       constructor() {
         this.root = null
       }
+      // 插入操作
+      insert(key) {
+        let newNode = new Node(key)
+        //  判断根节点是否有值
+        if(this.root === null) {
+          this.root = newNode
+        } else {
+          this.#insertNode(this.root, newNode)
+        }
+      }
+      //  定义内部私有方法
+      #insertNode(node, newNode) {
+        if (newNode.key < node.key) { // 向左查找
+          if (node.left === null) {
+            node.left = newNode
+          } else {
+            this.#insertNode(node.left, newNode)
+          }
+        } else { // 向右查找
+          if (node.right === null) {
+            node.right = newNode
+          } else {
+            this.#insertNode(node.right, newNode)
+          }
+        }
+      }
+      //  树的遍历
+      // 先序遍历
+      preorderTraversal(handler) { // handler 自定义处理方法
+        this.#preorderTraversal(this.root,handler)
+      }
+      //  用于递归的私有方法
+      #preorderTraversal(node, handler) {
+        if(node === null) return null
+        handler(node.key)
+        // 处理经过节点的左子节点
+        this.#preorderTraversal(node.left, handler)
+        //  处理经过节点的右子节点
+        this.#preorderTraversal(node.right, handler)
+      }
     }
+
+
+    //  测试
+    let bst = new BinarySearchTree()
+    bst.insert(11)
+    bst.insert(7)
+    bst.insert(15)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(9)
+    bst.insert(8)
+    bst.insert(10)
+    bst.insert(13)
+    bst.insert(12)
+    bst.insert(14)
+    bst.insert(20)
+    bst.insert(18)
+    bst.insert(25)
+    console.log('bst', bst)
+    let resultStr = ''
+    bst.preorderTraversal(function(key) {
+      resultStr += key + ' '
+    })
+    console.log('preorderTraversal', resultStr)
   </script>
 </body>
 </html>
