@@ -59,6 +59,50 @@
         //  处理经过节点的右子节点
         this.#preorderTraversal(node.right, handler)
       }
+      //  中序遍历
+      midOrderTraversal(handler) {
+        this.#midOrderTraversal(this.root, handler)
+      }
+      // 用于中序遍历的递归方法
+      #midOrderTraversal(node, handler) {
+        if(node === null) return null
+        // 处理左子树节点
+        this.#midOrderTraversal(node.left, handler)
+        handler(node.key)
+        // 处理右子树中的节点
+        this.#midOrderTraversal(node.right, handler)
+      }
+      // 后序遍历
+      postOrderTraversal(handler) {
+        this.#postOrderTraversal(this.root, handler)
+      }
+      //  用于后序遍历的递归方法
+      #postOrderTraversal(node, handler) {
+        if(node === null) return null
+        // 处理左子树节点
+        this.#postOrderTraversal(node.left, handler)
+        //  处理右子树节点
+        this.#postOrderTraversal(node.right, handler)
+        // 处理node
+        handler(node.key)
+      }
+      /**
+       *  寻找最值
+       */
+      max() {
+        let node = this.root
+        while(node !== null && node.right !== null) {
+          node = node.right
+        }
+        return node.key
+      }
+      min() {
+        let node = this.root
+        while(node !== null && node.left !== null) {
+          node = node.left
+        }
+        return node.key
+      }
     }
 
 
@@ -79,11 +123,27 @@
     bst.insert(18)
     bst.insert(25)
     console.log('bst', bst)
+    //  先序遍历测试
     let resultStr = ''
     bst.preorderTraversal(function(key) {
       resultStr += key + ' '
     })
     console.log('preorderTraversal', resultStr)
+    // 中序遍历测试
+    let midStr = ''
+    bst.midOrderTraversal(function(key) {
+      midStr += key + ' '
+    })
+    console.log('midOrderTraversal', midStr)
+    //  后序遍历测试
+    let postStr = ''
+    bst.postOrderTraversal(function(key) {
+      postStr += key + ' '
+    })
+    console.log('postOrderTraversal', postStr)
+    //  最值测试
+    console.log('最大值', bst.max())
+    console.log('最小值', bst.min())
   </script>
 </body>
 </html>
